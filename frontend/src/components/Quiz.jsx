@@ -42,7 +42,7 @@ const Quiz = () => {
     const currentQuestion = questions[currentQuestionIndex];
 
     const shareOnWhatsApp = () => {
-        const url = 'http://localhost:5173';
+        const url = 'https://react-quiz-app-website.onrender.com/';
         
         const text = encodeURIComponent(`Check out this quiz! ${url}`);
         window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
