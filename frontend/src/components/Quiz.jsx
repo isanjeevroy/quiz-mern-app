@@ -9,7 +9,7 @@ const Quiz = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get('https://react-quiz-app-website.onrender.com/questions');
+                const response = await axios.get('https://react-quiz-app-d2w3.onrender.com/questions');
                 setQuestions(response.data);
             } catch (error) {
                 console.log("Error aa gya hai...");
@@ -23,7 +23,7 @@ const Quiz = () => {
         if (questions.length === 0 || isQuizCompleted) return; 
 
         try {
-            const response = await axios.post('https://react-quiz-app-website.onrender.com/update-answer', {
+            const response = await axios.post('https://react-quiz-app-d2w3.onrender.com/update-answer', {
                 newAnswer: optionNumber,
                 questionId: questions[currentQuestionIndex]._id
             });

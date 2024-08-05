@@ -14,7 +14,7 @@ const PlayQuiz = () => {
     useEffect(() => {
         const fetchQuestions = async () => {
             try {
-                const response = await axios.get('https://react-quiz-app-website.onrender.com/questions');
+                const response = await axios.get('https://react-quiz-app-d2w3.onrender.com/questions');
                 setQuestions(response.data);
             } catch (error) {
                 console.log("Error fetching questions:", error.message);
