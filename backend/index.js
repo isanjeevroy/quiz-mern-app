@@ -3,6 +3,8 @@ import mongoose from 'mongoose'
 import cors from 'cors'
 import {Question} from './models/questions.models.js'
 import {data} from './Question.js'
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const app = express()
