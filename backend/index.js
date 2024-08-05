@@ -7,6 +7,7 @@ import {data} from './Question.js'
 
 const app = express()
 const PORT = 4000
+const url = process.env.MONGO_URL
 
 //middleware
 app.use(cors());
@@ -19,7 +20,7 @@ main()
 })
 .catch(err => console.log(err));
 async function main() {
-  await mongoose.connect('mongodb://127.0.0.1:27017/react-quiz-app');
+  await mongoose.connect(url);
 }
 
 app.post('/add-questions', async (req, res) => {
