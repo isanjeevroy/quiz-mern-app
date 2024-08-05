@@ -12,7 +12,13 @@ const PORT = 4000
 const url = process.env.MONGO_URL
 
 //middleware
-app.use(cors());
+const corsOptions = {
+  origin: 'https://react-quiz-app-six-phi.vercel.app',
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+  credentials: true,
+};
+app.use(cors(corsOptions));
+
 app.use(express.json());
 
 // mongoDB connection
