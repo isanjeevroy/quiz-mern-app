@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import './Quiz.css';
 
 const Quiz = () => {
     const [questions, setQuestions] = useState([]);
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
     const [isQuizCompleted, setIsQuizCompleted] = useState(false);
+    const [selectedAnswer, setSelectedAnswer] = useState(null);
 
     useEffect(() => {
         const fetchQuestions = async () => {
@@ -12,54 +14,47 @@ const Quiz = () => {
                 const response = await axios.get('https://react-quiz-app-d2w3.onrender.com/questions');
                 setQuestions(response.data);
             } catch (error) {
-                console.log("Error aa gya hai...");
+                console.log("Error aa gya hai.");
             }
         };
 
         fetchQuestions();
     }, []);
 
-    const handleOptionClick = async (optionNumber) => {
-        if (questions.length === 0 || isQuizCompleted) return; 
+    const handleOptionClick = (optionNumber) => {
+        setSelectedAnswer(optionNumber);
+    };
 
-        try {
-            const response = await axios.post('https://react-quiz-app-d2w3.onrender.com/update-answer', {
-                newAnswer: optionNumber,
-                questionId: questions[currentQuestionIndex]._id
-            });
+    const handleNextQuestion = () => {
+        setSelectedAnswer(null);
 
-            // Move to the next question
-            if (currentQuestionIndex < questions.length - 1) {
-                setCurrentQuestionIndex(currentQuestionIndex + 1);
-            } else {
-                setIsQuizCompleted(true); 
-            }
-        } catch (error) {
-            console.log("Error occurred:", error.message);
+        if (currentQuestionIndex < questions.length - 1) {
+            setCurrentQuestionIndex(currentQuestionIndex + 1);
+        } else {
+            setIsQuizCompleted(true);
         }
+    };
+
+    const shareOnWhatsApp = () => {
+        const message = `I just updated my quiz answers!`;
+        const encodedMessage = encodeURIComponent(message);
+        window.open(`https://api.whatsapp.com/send?text=${encodedMessage}`, '_blank');
     };
 
     const currentQuestion = questions[currentQuestionIndex];
 
-    const shareOnWhatsApp = () => {
-        const url = 'https://react-quiz-app-website.onrender.com/';
-        
-        const text = encodeURIComponent(`Check out this quiz! ${url}`);
-        window.open(`https://api.whatsapp.com/send?text=${text}`, '_blank');
-    };
-
     return (
-        <div>
+        <div className="quiz-update-card">
             <h1>Update Quiz Answers</h1>
             {isQuizCompleted ? (
-                <div>
+                <div className="completion-message">
                     <p>Thank you!</p>
                     <button onClick={shareOnWhatsApp}>Share on WhatsApp</button>
                 </div>
             ) : currentQuestion ? (
                 <div>
                     <h2>{currentQuestion.question}</h2>
-                    <div>
+                    <div className="options">
                         <button onClick={() => handleOptionClick(1)}>
                             {currentQuestion.option1}
                         </button>
@@ -73,6 +68,9 @@ const Quiz = () => {
                             {currentQuestion.option4}
                         </button>
                     </div>
+                    <button onClick={handleNextQuestion} disabled={selectedAnswer === null}>
+                        Next Question
+                    </button>
                 </div>
             ) : (
                 <p>Loading questions...</p>
