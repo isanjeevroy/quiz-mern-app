@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import './PlayQuiz.css';
+
 
 const PlayQuiz = () => {
     const [questions, setQuestions] = useState([]);
@@ -54,7 +56,7 @@ const PlayQuiz = () => {
     };
 
     return (
-        <div>
+        <div className="quiz-card">
             <h1>Play Quiz</h1>
             {quizFinished ? (
                 <div>
