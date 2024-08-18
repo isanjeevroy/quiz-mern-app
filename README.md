@@ -47,7 +47,7 @@ To get started with the Quiz App:
      ```
 5. **Set up environment variables:**
    - Create a `.env` file in the root directory.
-   - Add your MongoDB URI and Cloudinary credentials environment variables.
+   - Add your MongoDB URI and environment variables.
 
 6. **Run the development server:**
    - **Backend**
